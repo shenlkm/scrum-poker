@@ -23,7 +23,7 @@ public class ScrumPokerApplication extends Application implements HasActivityInj
     public void onCreate() {
         super.onCreate();
 
-        DaggerAppComponent.create().inject(this);
+        DaggerAppComponent.builder().create().inject(this);
     }
 
     // Dependency Injection

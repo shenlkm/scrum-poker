@@ -19,4 +19,8 @@ public interface AppComponent extends AndroidInjector<ScrumPokerApplication> {
     @Override
     void inject(ScrumPokerApplication scrumPokerApplication);
 
+    @Component.Builder
+    interface Builder {
+        AppComponent create();
+    }
 }
