@@ -6,6 +6,9 @@
         <variable
                 name="name"
                 type="String"/>
+        <variable
+                name="card"
+                type="com.buildreams.scrumpoker.domain.entity.Card"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
             xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -13,17 +16,21 @@
             android:layout_height="match_parent"
             tools:context=".view.DeploymentCardActivity">
 
-        <TextView
-                android:layout_width="wrap_content"
+        <EditText
+                android:id="@+id/text1"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{name}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
+                android:text="@{card.point}"
                 app:layout_constraintTop_toTopOf="parent"/>
 
+        <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{name}"
+                app:layout_constraintTop_toTopOf="@+id/text1"/>
+
         <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_deployment_card"
+                android:id="@+id/rv_present_card"
                 android:scrollbars="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
