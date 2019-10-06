@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".view.DeploymentCardActivity">
+
+        <FrameLayout
+                android:id="@+id/fl_deployment_card"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

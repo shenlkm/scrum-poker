@@ -1,6 +1,6 @@
 package com.buildreams.scrumpoker.di;
 
-import com.buildreams.scrumpoker.view.MainActivity;
+import com.buildreams.scrumpoker.view.DeploymentCardActivity;
 import dagger.Binds;
 import dagger.Module;
 import dagger.Subcomponent;
@@ -9,20 +9,21 @@ import dagger.multibindings.ClassKey;
 import dagger.multibindings.IntoMap;
 
 @Module(subcomponents = {
-        ActivityModule.MainActivitySubcomponent.class,
+        ActivityModule.DeploymentCardActivitySubcomponent.class
 })
 public abstract class ActivityModule {
 
     @Binds
     @IntoMap
-    @ClassKey(MainActivity.class)
+    @ClassKey(DeploymentCardActivity.class)
     abstract AndroidInjector.Factory<?>
-    bindLoginActivityInjectorFactory(MainActivitySubcomponent.Factory factory);
+    bindDeploymentCardActivityInjectorFactory(DeploymentCardActivitySubcomponent.Factory factory);
 
-    @Subcomponent(modules = {ViewModelModule.class})
-    public interface MainActivitySubcomponent extends AndroidInjector<MainActivity> {
+
+    @Subcomponent(modules = {ViewModelModule.class, AdapterModule.class})
+    public interface DeploymentCardActivitySubcomponent extends AndroidInjector<DeploymentCardActivity> {
         @Subcomponent.Factory
-        public interface Factory extends AndroidInjector.Factory<MainActivity> {
+        interface Factory extends AndroidInjector.Factory<DeploymentCardActivity> {
         }
     }
 }
