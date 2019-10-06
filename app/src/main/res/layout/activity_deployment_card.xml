@@ -1,37 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools">
-
-    <data>
-        <variable
-                name="name"
-                type="String"/>
-        <variable
-                name="card"
-                type="com.buildreams.scrumpoker.domain.entity.Card"/>
-    </data>
     <androidx.constraintlayout.widget.ConstraintLayout
-            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:context=".view.DeploymentCardActivity">
 
-        <EditText
-                android:id="@+id/text1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@{card.point}"
-                app:layout_constraintTop_toTopOf="parent"/>
-
-        <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@{name}"
-                app:layout_constraintTop_toTopOf="@+id/text1"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_present_card"
-                android:scrollbars="vertical"
+        <FrameLayout
+                android:id="@+id/fl_deployment_card"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
 
