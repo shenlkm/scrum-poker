@@ -1,6 +1,7 @@
 package com.buildreams.scrumpoker.di;
 
-import com.buildreams.scrumpoker.view.adapter.DeploymentCardAdapter;
+import com.buildreams.scrumpoker.view.adapter.DashboardCardAdapter;
+
 import dagger.Module;
 import dagger.Provides;
 
@@ -8,7 +9,7 @@ import dagger.Provides;
 public class AdapterModule {
 
     @Provides
-    DeploymentCardAdapter providesCardAdapter() {
-        return new DeploymentCardAdapter();
+    DashboardCardAdapter providesCardAdapter() {
+        return new DashboardCardAdapter();
     }
 }
