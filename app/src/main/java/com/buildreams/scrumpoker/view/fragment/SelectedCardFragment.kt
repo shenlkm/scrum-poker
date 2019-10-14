@@ -22,6 +22,9 @@ import com.buildreams.scrumpoker.view.DashboardCardActivity
 import com.buildreams.scrumpoker.viewModel.CardViewModel
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
+import androidx.cardview.widget.CardView
+
+
 
 open class SelectedCardFragment : Fragment() {
 
@@ -48,7 +51,10 @@ open class SelectedCardFragment : Fragment() {
             executePendingBindings()
         }
         binding.infoText.setTextColor(context!!.getColor(R.color.darker_gray))
-        //binding.cardView.updateLayoutParams {  }
+        var layoutParams = binding.cardView.getLayoutParams()
+        layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT
+        layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT
+        binding.cardView.layoutParams = layoutParams
         binding.cardContainer .setOnClickListener { view ->
             if (isCardFlipped) {
                 parentFragmentManager.popBackStack()
