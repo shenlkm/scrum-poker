@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.buildreams.scrumpoker.R
-import com.buildreams.scrumpoker.databinding.FragmentDeploymentCardBinding
+import com.buildreams.scrumpoker.databinding.FragmentDashboardCardBinding
 import com.buildreams.scrumpoker.domain.entity.Card
 import com.buildreams.scrumpoker.view.DashboardCardActivity
 import com.buildreams.scrumpoker.view.adapter.DashboardCardAdapter
@@ -27,14 +27,14 @@ class DashboardCardFragment(var activity: DashboardCardActivity) : Fragment() {
     @Inject
     lateinit var adapter: DashboardCardAdapter
 
-    lateinit var binding: FragmentDeploymentCardBinding
+    lateinit var binding: FragmentDashboardCardBinding
     lateinit var listener: DashboardCardAdapter.ItemListener
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate<ViewDataBinding>(
             inflater,
             R.layout.fragment_dashboard_card, container, false
-        ) as FragmentDeploymentCardBinding
+        ) as FragmentDashboardCardBinding
 
         val view = binding.root
 
@@ -47,7 +47,9 @@ class DashboardCardFragment(var activity: DashboardCardActivity) : Fragment() {
 
         val recyclerView = binding.rvPresentCard
 
-        recyclerView.layoutManager = GridLayoutManager(activity, 3)
+        var gridManager = GridLayoutManager(activity, 3)
+        //gridManager.generateDefaultLayoutParams().setMargins(0,0,0,0)
+        recyclerView.layoutManager = gridManager
         val cards = ArrayList<Card>()
         val img: Byte = 0
 
