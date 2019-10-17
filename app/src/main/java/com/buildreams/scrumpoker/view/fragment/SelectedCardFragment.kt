@@ -55,6 +55,7 @@ open class SelectedCardFragment : Fragment() {
         layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT
         layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT
         binding.cardView.layoutParams = layoutParams
+
         binding.cardContainer .setOnClickListener { view ->
             if (isCardFlipped) {
                 parentFragmentManager.popBackStack()
