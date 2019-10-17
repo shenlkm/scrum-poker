@@ -47,7 +47,7 @@ class DashboardCardFragment(var activity: DashboardCardActivity) : Fragment() {
 
         val recyclerView = binding.rvPresentCard
 
-        var gridManager = GridLayoutManager(activity, 3)
+        val gridManager = GridLayoutManager(activity, 3)
         recyclerView.layoutManager = gridManager
         val cards = ArrayList<Card>()
         val img: Byte = 0
