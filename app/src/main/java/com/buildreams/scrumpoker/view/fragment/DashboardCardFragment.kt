@@ -48,12 +48,13 @@ class DashboardCardFragment(var activity: DashboardCardActivity) : Fragment() {
         val recyclerView = binding.rvPresentCard
 
         var gridManager = GridLayoutManager(activity, 3)
-        //gridManager.generateDefaultLayoutParams().setMargins(0,0,0,0)
         recyclerView.layoutManager = gridManager
         val cards = ArrayList<Card>()
         val img: Byte = 0
 
         AddFibonacciCards(img, cards)
+        cards.add(Card(0, "?", img))
+        cards.add(Card(0, "∞", img))
         cards.add(Card(0, "Coffee", img))
         adapter.setListener(listener)
         adapter.setCards(cards)

@@ -7,6 +7,7 @@ import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
 import android.content.Context
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,8 +23,6 @@ import com.buildreams.scrumpoker.view.DashboardCardActivity
 import com.buildreams.scrumpoker.viewModel.CardViewModel
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
-import androidx.cardview.widget.CardView
-
 
 
 open class SelectedCardFragment : Fragment() {
@@ -50,11 +49,8 @@ open class SelectedCardFragment : Fragment() {
             setVariable(BR.card, viewModel.card.value)
             executePendingBindings()
         }
-        binding.infoText.setTextColor(context!!.getColor(R.color.darker_gray))
-        var layoutParams = binding.cardView.getLayoutParams()
-        layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT
-        layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT
-        binding.cardView.layoutParams = layoutParams
+        binding.infoText.visibility = View.GONE
+        setItemsLayoutParams()
 
         binding.cardContainer .setOnClickListener { view ->
             if (isCardFlipped) {
@@ -65,6 +61,19 @@ open class SelectedCardFragment : Fragment() {
         }
     }
 
+    private fun setItemsLayoutParams() {
+        var layoutParamsCard = binding.cardView.getLayoutParams()
+        layoutParamsCard.height = ViewGroup.LayoutParams.MATCH_PARENT
+        layoutParamsCard.width = ViewGroup.LayoutParams.MATCH_PARENT
+        binding.cardView.layoutParams = layoutParamsCard
+
+        var layoutParamsText = binding.infoText.getLayoutParams()
+        layoutParamsText.height = ViewGroup.LayoutParams.MATCH_PARENT
+        layoutParamsText.width = ViewGroup.LayoutParams.MATCH_PARENT
+        binding.infoText.layoutParams = layoutParamsText
+        binding.infoText.gravity = Gravity.CENTER
+    }
+
     private fun flipCard(view: View) {
         val objectAnimatorFlipLeft = ObjectAnimator.ofFloat(view, "scaleX", 1f, 0f)
         val objectAnimatorFlipRight = ObjectAnimator.ofFloat(view, "scaleX", 0f, 1f)
@@ -73,6 +82,9 @@ open class SelectedCardFragment : Fragment() {
         objectAnimatorFlipLeft.addListener(object : AnimatorListenerAdapter() {
             override fun onAnimationEnd(animation: Animator) {
                 super.onAnimationEnd(animation)
+                binding.lavCardAnimation.visibility = View.GONE
+                binding.infoText.visibility = View.VISIBLE
+                binding.infoText.setTextColor(context!!.getColor(R.color.black))
                 binding.cardContainer.setBackgroundColor(context!!.getColor(R.color.white))
                 objectAnimatorFlipRight.start()
                 isCardFlipped = true
@@ -89,5 +101,10 @@ open class SelectedCardFragment : Fragment() {
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
         super.onAttach(context)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.lavCardAnimation.playAnimation()
     }
 }
