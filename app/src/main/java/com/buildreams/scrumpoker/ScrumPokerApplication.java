@@ -2,14 +2,17 @@ package com.buildreams.scrumpoker;
 
 import android.app.Activity;
 import android.app.Application;
+
 import androidx.fragment.app.Fragment;
+
 import com.buildreams.scrumpoker.di.component.DaggerAppComponent;
+
+import javax.inject.Inject;
+
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
 import dagger.android.support.HasSupportFragmentInjector;
-
-import javax.inject.Inject;
 
 public class ScrumPokerApplication extends Application implements HasActivityInjector,
         HasSupportFragmentInjector {

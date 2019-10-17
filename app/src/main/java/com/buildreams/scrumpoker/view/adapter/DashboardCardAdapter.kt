@@ -11,14 +11,19 @@ import com.buildreams.scrumpoker.domain.entity.Card
 
 import javax.inject.Inject
 
-class DeploymentCardAdapter @Inject
-constructor() : RecyclerView.Adapter<DeploymentCardAdapter.CardViewHolder>() {
+class DashboardCardAdapter @Inject
+constructor() : RecyclerView.Adapter<DashboardCardAdapter.CardViewHolder>() {
 
     private lateinit var cards: List<Card>
+    private lateinit var listener: ItemListener
 
     fun setCards(_cards: List<Card>) {
         this.cards = _cards
         notifyDataSetChanged()
+    }
+
+    fun setListener(itemListener: ItemListener) {
+        listener = itemListener
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewHolder {
@@ -26,7 +31,6 @@ constructor() : RecyclerView.Adapter<DeploymentCardAdapter.CardViewHolder>() {
             LayoutInflater.from(parent.context), R.layout.item_card,
             parent, false
         )
-
         return CardViewHolder(binding)
     }
 
@@ -37,9 +41,11 @@ constructor() : RecyclerView.Adapter<DeploymentCardAdapter.CardViewHolder>() {
     override fun onBindViewHolder(holder: CardViewHolder, position: Int) {
         val item = cards[position]
         holder.bind(item)
+        holder.itemView.setOnClickListener { listener.onItemSelected(item) }
     }
 
-    class CardViewHolder(private val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
+    class CardViewHolder(private val binding: ViewDataBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(card: Card) {
             binding.apply {
@@ -47,5 +53,9 @@ constructor() : RecyclerView.Adapter<DeploymentCardAdapter.CardViewHolder>() {
                 executePendingBindings()
             }
         }
+    }
+
+    interface ItemListener {
+        fun onItemSelected(card: Card)
     }
 }

@@ -10,32 +10,30 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import com.buildreams.scrumpoker.DashboardBinding
 import com.buildreams.scrumpoker.R
 import com.buildreams.scrumpoker.databinding.FragmentDeploymentCardBinding
 import com.buildreams.scrumpoker.domain.entity.Card
-import com.buildreams.scrumpoker.view.DeploymentCardActivity
-import com.buildreams.scrumpoker.view.adapter.DeploymentCardAdapter
+import com.buildreams.scrumpoker.view.DashboardCardActivity
+import com.buildreams.scrumpoker.view.adapter.DashboardCardAdapter
+import com.buildreams.scrumpoker.viewModel.CardViewModel
 import com.buildreams.scrumpoker.viewModel.UserViewModel
 import dagger.android.support.AndroidSupportInjection
 import java.util.*
 import javax.inject.Inject
 
-class DeploymentCardFragment(
-    var activity: DeploymentCardActivity
-) : Fragment() {
+class DashboardCardFragment(var activity: DashboardCardActivity) : Fragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     @Inject
-    lateinit var adapter: DeploymentCardAdapter
+    lateinit var adapter: DashboardCardAdapter
 
     lateinit var binding: FragmentDeploymentCardBinding
+    lateinit var listener: DashboardCardAdapter.ItemListener
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate<ViewDataBinding>(
             inflater,
             R.layout.fragment_deployment_card, container, false
@@ -43,34 +41,40 @@ class DeploymentCardFragment(
 
         val view = binding.root
 
-        activity = getActivity() as DeploymentCardActivity
+        activity = getActivity() as DashboardCardActivity
         return view
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        val model: UserViewModel = ViewModelProvider(this, viewModelFactory).get(UserViewModel::class.java)
-
-        val card = Card(1, "1", 0)
-        binding.card = card
-        binding.name = model.user
         val recyclerView = binding.rvPresentCard
 
         recyclerView.layoutManager = GridLayoutManager(activity, 3)
         val cards = ArrayList<Card>()
         val img: Byte = 0
-        val card1 = Card(1, "test1", img)
-        val card2 = Card(2, "test2", img)
-        val card3 = Card(3, "test3", img)
-        cards.add(card1)
-        cards.add(card2)
-        cards.add(card3)
+
+        AddFibonacciCards(img, cards)
+        cards.add(Card(0, "Coffee", img))
+        adapter.setListener(listener)
         adapter.setCards(cards)
+
         recyclerView.adapter = adapter
     }
 
+    private fun AddFibonacciCards(img: Byte, cards: ArrayList<Card>) {
+        val array = activity.resources.getIntArray(R.array.fibonacci)
+        array.forEach {
+            cards.add(Card(it.toLong(), it.toString(), img))
+        }
+    }
+
     override fun onAttach(context: Context) {
+        if (context is DashboardCardAdapter.ItemListener){
+            listener = context
+        } else {
+            throw RuntimeException("$context must implement DashboardCardAdapter.ItemListeners")
+        }
         AndroidSupportInjection.inject(this)
         super.onAttach(context)
     }

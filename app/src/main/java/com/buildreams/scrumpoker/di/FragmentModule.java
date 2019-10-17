@@ -1,6 +1,8 @@
 package com.buildreams.scrumpoker.di;
 
-import com.buildreams.scrumpoker.view.fragment.DeploymentCardFragment;
+import com.buildreams.scrumpoker.view.fragment.DashboardCardFragment;
+import com.buildreams.scrumpoker.view.fragment.SelectedCardFragment;
+
 import dagger.Binds;
 import dagger.Module;
 import dagger.Subcomponent;
@@ -9,20 +11,36 @@ import dagger.multibindings.ClassKey;
 import dagger.multibindings.IntoMap;
 
 @Module(subcomponents = {
-        FragmentModule.DeploymentCardFragmentSubcomponent.class})
+        FragmentModule.DeploymentCardFragmentSubcomponent.class,
+        FragmentModule.SelectedCardFragmentSubcomponent.class
+})
 public abstract class FragmentModule {
 
     @Binds
     @IntoMap
-    @ClassKey(DeploymentCardFragment.class)
+    @ClassKey(DashboardCardFragment.class)
     abstract AndroidInjector.Factory<?>
     bindDeploymentCardFragmentInjectorFactory(DeploymentCardFragmentSubcomponent.Factory factory);
 
 
     @Subcomponent(modules = {ViewModelModule.class})
-    public interface DeploymentCardFragmentSubcomponent extends AndroidInjector<DeploymentCardFragment> {
+    public interface DeploymentCardFragmentSubcomponent extends AndroidInjector<DashboardCardFragment> {
         @Subcomponent.Factory
-        public interface Factory extends AndroidInjector.Factory<DeploymentCardFragment> {
+        public interface Factory extends AndroidInjector.Factory<DashboardCardFragment> {
+        }
+    }
+
+    @Binds
+    @IntoMap
+    @ClassKey(SelectedCardFragment.class)
+    abstract AndroidInjector.Factory<?>
+    bindSelectedCardFragmentInjectorFactory(SelectedCardFragmentSubcomponent.Factory factory);
+
+
+    @Subcomponent(modules = {ViewModelModule.class})
+    public interface SelectedCardFragmentSubcomponent extends AndroidInjector<SelectedCardFragment> {
+        @Subcomponent.Factory
+        public interface Factory extends AndroidInjector.Factory<SelectedCardFragment> {
         }
     }
 }

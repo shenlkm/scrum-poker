@@ -1,8 +1,11 @@
 package com.buildreams.scrumpoker.di;
 
 import androidx.lifecycle.ViewModelProvider;
+
+import com.buildreams.scrumpoker.viewModel.CardViewModel;
 import com.buildreams.scrumpoker.viewModel.MasterViewModelFactory;
 import com.buildreams.scrumpoker.viewModel.UserViewModel;
+
 import dagger.Module;
 import dagger.Provides;
 import dagger.Subcomponent;
@@ -18,6 +21,7 @@ public class ViewModelModule {
     @Subcomponent
     public interface ViewModelSubComponent {
         UserViewModel userViewModel();
+        CardViewModel cardViewModel();
 
         @Subcomponent.Builder
         interface Builder {
