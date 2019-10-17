@@ -28,7 +28,7 @@ open class DashboardCardActivity : AppCompatActivity(), DashboardCardAdapter.Ite
         super.onCreate(savedInstanceState)
 
         viewModel = ViewModelProvider(this, viewModelFactory).get(CardViewModel::class.java)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_deployment_card)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_dashboard_card)
         binding.viewModel = viewModel
         addFragment(DashboardCardFragment(this))
     }

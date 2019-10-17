@@ -10,14 +10,11 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import com.buildreams.scrumpoker.DashboardBinding
 import com.buildreams.scrumpoker.R
 import com.buildreams.scrumpoker.databinding.FragmentDeploymentCardBinding
 import com.buildreams.scrumpoker.domain.entity.Card
 import com.buildreams.scrumpoker.view.DashboardCardActivity
 import com.buildreams.scrumpoker.view.adapter.DashboardCardAdapter
-import com.buildreams.scrumpoker.viewModel.CardViewModel
-import com.buildreams.scrumpoker.viewModel.UserViewModel
 import dagger.android.support.AndroidSupportInjection
 import java.util.*
 import javax.inject.Inject
@@ -36,7 +33,7 @@ class DashboardCardFragment(var activity: DashboardCardActivity) : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate<ViewDataBinding>(
             inflater,
-            R.layout.fragment_deployment_card, container, false
+            R.layout.fragment_dashboard_card, container, false
         ) as FragmentDeploymentCardBinding
 
         val view = binding.root
