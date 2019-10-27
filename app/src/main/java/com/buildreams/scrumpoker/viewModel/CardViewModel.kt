@@ -8,9 +8,6 @@ import javax.inject.Inject
 class CardViewModel @Inject
 constructor() : ViewModel() {
 
-    lateinit var card: MutableLiveData<Card>
+    var card: MutableLiveData<Card> = MutableLiveData()
 
-    init {
-        card = MutableLiveData()
-    }
 }

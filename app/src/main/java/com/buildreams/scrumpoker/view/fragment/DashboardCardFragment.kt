@@ -10,14 +10,11 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import com.buildreams.scrumpoker.DashboardBinding
 import com.buildreams.scrumpoker.R
-import com.buildreams.scrumpoker.databinding.FragmentDeploymentCardBinding
+import com.buildreams.scrumpoker.databinding.FragmentDashboardCardBinding
 import com.buildreams.scrumpoker.domain.entity.Card
 import com.buildreams.scrumpoker.view.DashboardCardActivity
 import com.buildreams.scrumpoker.view.adapter.DashboardCardAdapter
-import com.buildreams.scrumpoker.viewModel.CardViewModel
-import com.buildreams.scrumpoker.viewModel.UserViewModel
 import dagger.android.support.AndroidSupportInjection
 import java.util.*
 import javax.inject.Inject
@@ -30,14 +27,14 @@ class DashboardCardFragment(var activity: DashboardCardActivity) : Fragment() {
     @Inject
     lateinit var adapter: DashboardCardAdapter
 
-    lateinit var binding: FragmentDeploymentCardBinding
+    lateinit var binding: FragmentDashboardCardBinding
     lateinit var listener: DashboardCardAdapter.ItemListener
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate<ViewDataBinding>(
             inflater,
-            R.layout.fragment_deployment_card, container, false
-        ) as FragmentDeploymentCardBinding
+            R.layout.fragment_dashboard_card, container, false
+        ) as FragmentDashboardCardBinding
 
         val view = binding.root
 
@@ -50,11 +47,14 @@ class DashboardCardFragment(var activity: DashboardCardActivity) : Fragment() {
 
         val recyclerView = binding.rvPresentCard
 
-        recyclerView.layoutManager = GridLayoutManager(activity, 3)
+        val gridManager = GridLayoutManager(activity, 3)
+        recyclerView.layoutManager = gridManager
         val cards = ArrayList<Card>()
         val img: Byte = 0
 
         AddFibonacciCards(img, cards)
+        cards.add(Card(0, "?", img))
+        cards.add(Card(0, "∞", img))
         cards.add(Card(0, "Coffee", img))
         adapter.setListener(listener)
         adapter.setCards(cards)

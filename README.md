@@ -15,6 +15,7 @@ git clone https://github.com/shenlkm/scrum-poker.git
 ## Libraries
 * [Dagger](https://google.github.io/dagger/android)
 * [Data Binding](https://developer.android.com/topic/libraries/data-binding/)
+* [Lottie](https://github.com/airbnb/lottie-android)
 
 ## Generating signed APK
 From Android Studio:
