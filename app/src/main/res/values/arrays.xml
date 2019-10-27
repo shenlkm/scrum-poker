@@ -23,4 +23,9 @@
         <item>L</item>
         <item>XL</item>
     </array>
+    <string-array name="deck_setting" >
+        <item>Fibonacci</item>
+        <item>T Shit</item>
+        <item>Recommend</item>
+    </string-array>
 </resources>
