@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">ScrumPoker</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="option_selected_deck_setting" translatable="false">deck_setting</string>
 </resources>
