@@ -1,7 +1,10 @@
 package com.buildreams.scrumpoker.view
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -11,6 +14,7 @@ import com.buildreams.scrumpoker.domain.entity.Card
 import com.buildreams.scrumpoker.view.adapter.DashboardCardAdapter
 import com.buildreams.scrumpoker.view.fragment.DashboardCardFragment
 import com.buildreams.scrumpoker.view.fragment.SelectedCardFragment
+import com.buildreams.scrumpoker.view.fragment.AboutFragment
 import com.buildreams.scrumpoker.viewModel.CardViewModel
 import dagger.android.AndroidInjection
 import javax.inject.Inject
@@ -30,7 +34,32 @@ open class DashboardCardActivity : AppCompatActivity(), DashboardCardAdapter.Ite
         viewModel = ViewModelProvider(this, viewModelFactory).get(CardViewModel::class.java)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_dashboard_card)
         binding.viewModel = viewModel
+
+        binding.navView.setNavigationItemSelectedListener { item -> onNavViewItemSelected(item) }
+
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+
         addFragment(DashboardCardFragment(this))
+    }
+
+    private fun onNavViewItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.nav_dashboard -> {
+                supportFragmentManager.popBackStack()
+                replaceFragment(DashboardCardFragment(this))
+            }
+            R.id.nav_about -> replaceFragment(AboutFragment())
+        }
+        item.isChecked = true
+        binding.drawerLayout.closeDrawers()
+        return true
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.menu, menu)
+        return true
     }
 
     private fun addFragment(fragment: Fragment) {
