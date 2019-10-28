@@ -20,13 +20,14 @@ class AboutFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        aboutViewModel =
-            ViewModelProviders.of(this).get(AboutViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_about, container, false)
-        val textView: TextView = root.findViewById(R.id.text_gallery)
-        aboutViewModel.text.observe(this, Observer {
-            textView.text = it
-        })
-        return root
+        aboutViewModel = ViewModelProviders.of(this).get(AboutViewModel::class.java)
+        return inflater.inflate(R.layout.fragment_about, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val textView: TextView = view.findViewById(R.id.text_gallery)
+        textView.text = getString(R.string.about_info)
     }
 }

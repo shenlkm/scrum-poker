@@ -1,5 +1,6 @@
 package com.buildreams.scrumpoker.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -59,6 +60,12 @@ open class DashboardCardActivity : AppCompatActivity(), DashboardCardAdapter.Ite
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val intent = Intent(this, DeckSettingActivity::class.java)
+        startActivity(intent)
         return true
     }
 
