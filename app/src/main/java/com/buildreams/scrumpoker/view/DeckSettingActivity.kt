@@ -1,6 +1,5 @@
 package com.buildreams.scrumpoker.view
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -40,21 +39,25 @@ open class DeckSettingActivity : AppCompatActivity() {
         binding.lvDeckSetting.onItemClickListener =
             AdapterView.OnItemClickListener { _, _, position, _ ->
                 mp.start()
-                val itemValue = binding.lvDeckSetting.getItemAtPosition(position) as String
                 with(sharedPref.edit()) {
                     putInt(getString(R.string.option_selected_deck_setting), position)
                     commit()
                 }
-                callDashboard(itemValue)
+                callDashboard()
             }
     }
 
-    private fun callDashboard(itemValue: String) {
+    override fun onBackPressed() {
+        super.onBackPressed()
         Intent(this, DashboardCardActivity::class.java).also {
-            val bundle = Bundle()
-            bundle.putString("deck", itemValue)
-            it.putExtras(bundle)
-            startActivityForResult(it, Activity.RESULT_OK, bundle)
+            startActivity(it)
+            finish()
+        }
+    }
+
+    private fun callDashboard() {
+        Intent(this, DashboardCardActivity::class.java).also {
+            startActivity(it)
             finish()
         }
     }

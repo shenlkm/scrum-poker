@@ -47,14 +47,6 @@ open class DashboardCardActivity : AppCompatActivity(), DashboardCardAdapter.Ite
         addFragment(DashboardCardFragment(this))
     }
 
-    public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
-            val deck = data!!.getStringExtra("deck")
-            println(deck)
-        }
-    }
-
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu, menu)
@@ -64,6 +56,7 @@ open class DashboardCardActivity : AppCompatActivity(), DashboardCardAdapter.Ite
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val intent = Intent(this, DeckSettingActivity::class.java)
         startActivity(intent)
+        finish()
         return true
     }
 
