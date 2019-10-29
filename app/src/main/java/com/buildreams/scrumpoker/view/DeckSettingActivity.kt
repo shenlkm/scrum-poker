@@ -1,6 +1,8 @@
 package com.buildreams.scrumpoker.view
 
 import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.View
@@ -8,14 +10,12 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.buildreams.scrumpoker.DeckSettingBinding
 import com.buildreams.scrumpoker.R
 import dagger.android.AndroidInjection
-
 
 
 open class DeckSettingActivity : AppCompatActivity() {
@@ -30,11 +30,43 @@ open class DeckSettingActivity : AppCompatActivity() {
         val mp = MediaPlayer.create(this, R.raw.deck_setting)
 
         val sharedPref = getSharedPreferences(
-            getString(R.string.option_selected_deck_setting), Context.MODE_PRIVATE)
-        val itemSelected = sharedPref.getInt(getString(R.string.option_selected_deck_setting), -1)
+            getString(R.string.option_selected_deck_setting),
+            Context.MODE_PRIVATE
+        )
 
+        binding.lvDeckSetting.adapter = loadDeckSetting(sharedPref)
+
+        binding.lvDeckSetting.onItemClickListener =
+            AdapterView.OnItemClickListener { _, _, position, _ ->
+                mp.start()
+                with(sharedPref.edit()) {
+                    putInt(getString(R.string.option_selected_deck_setting), position)
+                    commit()
+                }
+                callDashboard()
+            }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        Intent(this, DashboardCardActivity::class.java).also {
+            startActivity(it)
+            finish()
+        }
+    }
+
+    private fun callDashboard() {
+        Intent(this, DashboardCardActivity::class.java).also {
+            startActivity(it)
+            finish()
+        }
+    }
+
+    private fun loadDeckSetting(sharedPref: SharedPreferences): ArrayAdapter<String> {
+        val itemSelected = sharedPref.getInt(getString(R.string.option_selected_deck_setting), 0)
         val array: Array<String> = resources.getStringArray(R.array.deck_setting)
-        val adapter = object : ArrayAdapter<String>(this, R.layout.item_deck_setting, array) {
+
+        return object : ArrayAdapter<String>(this, R.layout.item_deck_setting, array) {
             override fun getView(pos: Int, convertView: View?, parent: ViewGroup): View {
                 val v: TextView = super.getView(pos, convertView, parent) as TextView
                 if (pos == itemSelected) {
@@ -52,23 +84,5 @@ open class DeckSettingActivity : AppCompatActivity() {
                 return v
             }
         }
-
-        binding.lvDeckSetting.adapter = adapter
-
-        binding.lvDeckSetting.onItemClickListener =
-            AdapterView.OnItemClickListener { _, _, position, _ ->
-                mp.start()
-                val itemValue = binding.lvDeckSetting.getItemAtPosition(position) as String
-                with (sharedPref.edit()) {
-                    putInt(getString(R.string.option_selected_deck_setting), position)
-                    commit()
-                }
-                // Toast the values
-                Toast.makeText(
-                    applicationContext,
-                    "Position :$position\nItem Value : $itemValue", Toast.LENGTH_LONG
-                ).show()
-                //TODO pending to do the intent or comeback action
-            }
     }
 }

@@ -1,32 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <array name="fibonacci">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>5</item>
-        <item>8</item>
-        <item>13</item>
-    </array>
-    <array name="fibonacci_two">
-        <item>0</item>
-        <item>0.5</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>5</item>
-        <item>8</item>
-    </array>
-    <array name="t_shirt">
-        <item>XS</item>
-        <item>S</item>
-        <item>M</item>
-        <item>L</item>
-        <item>XL</item>
-    </array>
     <string-array name="deck_setting" >
-        <item>Fibonacci</item>
-        <item>T Shit</item>
-        <item>Recommend</item>
+        <item name="fibonacci">Fibonacci</item>
+        <item name="t_shirt">T Shit</item>
+        <item name="recommend">Recommend</item>
     </string-array>
 </resources>
