@@ -16,11 +16,14 @@ import com.buildreams.scrumpoker.databinding.FragmentDashboardCardBinding
 import com.buildreams.scrumpoker.domain.entity.Card
 import com.buildreams.scrumpoker.view.DashboardCardActivity
 import com.buildreams.scrumpoker.view.adapter.DashboardCardAdapter
+import com.google.gson.Gson
 import dagger.android.support.AndroidSupportInjection
 import java.util.*
 import javax.inject.Inject
+import com.google.gson.reflect.TypeToken
 
-class DashboardCardFragment(var activity: DashboardCardActivity) : Fragment() {
+
+class DashboardCardFragment(private var activity: DashboardCardActivity) : Fragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -29,7 +32,7 @@ class DashboardCardFragment(var activity: DashboardCardActivity) : Fragment() {
     lateinit var adapter: DashboardCardAdapter
 
     lateinit var binding: FragmentDashboardCardBinding
-    lateinit var listener: DashboardCardAdapter.ItemListener
+    private lateinit var listener: DashboardCardAdapter.ItemListener
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate<ViewDataBinding>(
@@ -53,20 +56,28 @@ class DashboardCardFragment(var activity: DashboardCardActivity) : Fragment() {
         val cards = ArrayList<Card>()
         val img: Byte = 0
 
-        AddFibonacciCards(img, cards)
-        cards.add(Card(0, "?", img))
-        cards.add(Card(0, "∞", img))
-        cards.add(Card(0, "Coffee", img))
+        addFibonacciCards(img, cards)
+        cards.add(Card("?", "?", img))
+        cards.add(Card("∞", "∞", img))
+        cards.add(Card("Coffee", "Coffee", img))
         adapter.setListener(listener)
         adapter.setCards(cards)
 
         recyclerView.adapter = adapter
     }
 
-    private fun AddFibonacciCards(img: Byte, cards: ArrayList<Card>) {
-        val array = activity.resources.getIntArray(R.array.fibonacci)
+    private fun addFibonacciCards(img: Byte, cards: ArrayList<Card>) {
+        val sharedPref = activity.getSharedPreferences(
+            getString(R.string.option_selected_deck_setting),
+            Context.MODE_PRIVATE
+        )
+        val type = sharedPref.getInt(getString(R.string.option_selected_deck_setting), 0)
+        val json = resources.openRawResource(R.raw.decks).bufferedReader().use { it.readLine() }
+        val deckType = object : TypeToken<List<List<String>>>() {}.type
+        val decks = Gson().fromJson<List<List<String>>>(json, deckType)
+        val array = decks[type]
         array.forEach {
-            cards.add(Card(it.toLong(), it.toString(), img))
+            cards.add(Card(it, it, img))
         }
     }
 

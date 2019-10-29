@@ -1,5 +1,7 @@
 package com.buildreams.scrumpoker.view
 
+import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -13,12 +15,13 @@ import com.buildreams.scrumpoker.DashboardBinding
 import com.buildreams.scrumpoker.R
 import com.buildreams.scrumpoker.domain.entity.Card
 import com.buildreams.scrumpoker.view.adapter.DashboardCardAdapter
+import com.buildreams.scrumpoker.view.fragment.AboutFragment
 import com.buildreams.scrumpoker.view.fragment.DashboardCardFragment
 import com.buildreams.scrumpoker.view.fragment.SelectedCardFragment
-import com.buildreams.scrumpoker.view.fragment.AboutFragment
 import com.buildreams.scrumpoker.viewModel.CardViewModel
 import dagger.android.AndroidInjection
 import javax.inject.Inject
+
 
 open class DashboardCardActivity : AppCompatActivity(), DashboardCardAdapter.ItemListener {
 
@@ -44,17 +47,12 @@ open class DashboardCardActivity : AppCompatActivity(), DashboardCardAdapter.Ite
         addFragment(DashboardCardFragment(this))
     }
 
-    private fun onNavViewItemSelected(item: MenuItem): Boolean {
-        when(item.itemId) {
-            R.id.nav_dashboard -> {
-                supportFragmentManager.popBackStack()
-                replaceFragment(DashboardCardFragment(this))
-            }
-            R.id.nav_about -> replaceFragment(AboutFragment())
+    public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
+            val deck = data!!.getStringExtra("deck")
+            println(deck)
         }
-        item.isChecked = true
-        binding.drawerLayout.closeDrawers()
-        return true
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -75,19 +73,33 @@ open class DashboardCardActivity : AppCompatActivity(), DashboardCardAdapter.Ite
             .commit()
     }
 
+    override fun onItemSelected(card: Card) {
+        viewModel.card.value = card
+        replaceFragment(SelectedCardFragment.newInstance())
+    }
+
+    private fun onNavViewItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.nav_dashboard -> {
+                supportFragmentManager.popBackStack()
+                replaceFragment(DashboardCardFragment(this))
+            }
+            R.id.nav_about -> replaceFragment(AboutFragment())
+        }
+        item.isChecked = true
+        binding.drawerLayout.closeDrawers()
+        return true
+    }
+
     open fun replaceFragment(fragment: Fragment) {
         val transaction = supportFragmentManager.beginTransaction()
-        with(transaction){
+        with(transaction) {
             setCustomAnimations(
-                R.anim.fragment_fade_enter, R.anim.fragment_close_exit)
+                R.anim.fragment_fade_enter, R.anim.fragment_close_exit
+            )
             replace(R.id.fl_deployment_card, fragment)
             addToBackStack(null)
             commit()
         }
-    }
-
-    override fun onItemSelected(card: Card) {
-        viewModel.card.value = card
-        replaceFragment(SelectedCardFragment.newInstance())
     }
 }

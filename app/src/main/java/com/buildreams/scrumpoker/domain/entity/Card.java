@@ -17,11 +17,11 @@ public class Card extends BaseObservable implements Parcelable {
             return new Card[size];
         }
     };
-    private long id;
+    private String id;
     private String point;
     private byte image;
 
-    public Card(long id, String point, byte image) {
+    public Card(String id, String point, byte image) {
         this.id = id;
         this.point = point;
         this.image = image;
@@ -29,16 +29,16 @@ public class Card extends BaseObservable implements Parcelable {
 
     // Parcelling part
     public Card(Parcel in) {
-        this.id = in.readLong();
+        this.id = in.readString();
         this.point = in.readString();
         this.image = in.readByte();
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -66,7 +66,7 @@ public class Card extends BaseObservable implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flag) {
-        dest.writeLong(this.id);
+        dest.writeString(this.id);
         dest.writeString(this.point);
         dest.writeByte(this.image);
     }
