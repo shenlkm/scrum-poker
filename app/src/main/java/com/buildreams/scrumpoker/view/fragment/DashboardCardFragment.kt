@@ -11,16 +11,15 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.buildreams.scrumpoker.R
-
 import com.buildreams.scrumpoker.databinding.FragmentDashboardCardBinding
 import com.buildreams.scrumpoker.domain.entity.Card
 import com.buildreams.scrumpoker.view.DashboardCardActivity
 import com.buildreams.scrumpoker.view.adapter.DashboardCardAdapter
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import dagger.android.support.AndroidSupportInjection
 import java.util.*
 import javax.inject.Inject
-import com.google.gson.reflect.TypeToken
 
 
 class DashboardCardFragment(private var activity: DashboardCardActivity) : Fragment() {
