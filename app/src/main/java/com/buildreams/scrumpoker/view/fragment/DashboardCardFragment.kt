@@ -34,7 +34,8 @@ class DashboardCardFragment(private var activity: DashboardCardActivity) : Fragm
     lateinit var binding: FragmentDashboardCardBinding
     private lateinit var listener: DashboardCardAdapter.ItemListener
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate<ViewDataBinding>(
             inflater,
             R.layout.fragment_dashboard_card, container, false
@@ -49,24 +50,21 @@ class DashboardCardFragment(private var activity: DashboardCardActivity) : Fragm
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        val recyclerView = binding.rvPresentCard
-
-        val gridManager = GridLayoutManager(activity, 3)
-        recyclerView.layoutManager = gridManager
         val cards = ArrayList<Card>()
-        val img: Byte = 0
+        val gridManager = GridLayoutManager(activity, 3)
+        val recyclerView = binding.rvPresentCard
+        recyclerView.layoutManager = gridManager
 
-        addFibonacciCards(img, cards)
-        cards.add(Card("?", "?", img))
-        cards.add(Card("∞", "∞", img))
-        cards.add(Card("Coffee", "Coffee", img))
+        addFibonacciCards(cards)
+
         adapter.setListener(listener)
         adapter.setCards(cards)
 
         recyclerView.adapter = adapter
     }
 
-    private fun addFibonacciCards(img: Byte, cards: ArrayList<Card>) {
+    private fun addFibonacciCards(cards: ArrayList<Card>) {
+        val img: Byte = 0
         val sharedPref = activity.getSharedPreferences(
             getString(R.string.option_selected_deck_setting),
             Context.MODE_PRIVATE
@@ -79,6 +77,9 @@ class DashboardCardFragment(private var activity: DashboardCardActivity) : Fragm
         array.forEach {
             cards.add(Card(it, it, img))
         }
+        cards.add(Card("?", "?", img))
+        cards.add(Card("∞", "∞", img))
+        cards.add(Card("Coffee", "Coffee", img))
     }
 
     override fun onAttach(context: Context) {

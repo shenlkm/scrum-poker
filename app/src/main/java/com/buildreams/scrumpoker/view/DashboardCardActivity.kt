@@ -1,8 +1,7 @@
 package com.buildreams.scrumpoker.view
 
-import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Intent
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -20,6 +19,7 @@ import com.buildreams.scrumpoker.view.fragment.DashboardCardFragment
 import com.buildreams.scrumpoker.view.fragment.SelectedCardFragment
 import com.buildreams.scrumpoker.viewModel.CardViewModel
 import dagger.android.AndroidInjection
+import java.util.*
 import javax.inject.Inject
 
 
@@ -30,6 +30,10 @@ open class DashboardCardActivity : AppCompatActivity(), DashboardCardAdapter.Ite
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     lateinit var viewModel: CardViewModel
+
+    private var sounds = intArrayOf(R.raw.dashboard1, R.raw.dashboard2, R.raw.dashboard3, R.raw.dashboard4,
+        R.raw.dashboard5, R.raw.dashboard6, R.raw.dashboard7)
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
@@ -67,6 +71,9 @@ open class DashboardCardActivity : AppCompatActivity(), DashboardCardAdapter.Ite
     }
 
     override fun onItemSelected(card: Card) {
+        val id = sounds[Random().nextInt(sounds.size)]
+        val mp = MediaPlayer.create(this, id)
+        mp.start()
         viewModel.card.value = card
         replaceFragment(SelectedCardFragment.newInstance())
     }
