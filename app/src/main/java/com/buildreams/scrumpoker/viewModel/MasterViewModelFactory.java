@@ -23,6 +23,7 @@ public class MasterViewModelFactory implements ViewModelProvider.Factory {
         creators = new ArrayMap<>();
         creators.put(UserViewModel.class, viewModelSubComponent::userViewModel);
         creators.put(CardViewModel.class, viewModelSubComponent::cardViewModel);
+        creators.put(AboutViewModel.class, viewModelSubComponent::aboutViewModel);
     }
 
     @NonNull

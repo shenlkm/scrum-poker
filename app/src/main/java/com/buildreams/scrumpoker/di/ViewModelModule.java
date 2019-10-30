@@ -2,6 +2,7 @@ package com.buildreams.scrumpoker.di;
 
 import androidx.lifecycle.ViewModelProvider;
 
+import com.buildreams.scrumpoker.viewModel.AboutViewModel;
 import com.buildreams.scrumpoker.viewModel.CardViewModel;
 import com.buildreams.scrumpoker.viewModel.MasterViewModelFactory;
 import com.buildreams.scrumpoker.viewModel.UserViewModel;
@@ -22,6 +23,7 @@ public class ViewModelModule {
     public interface ViewModelSubComponent {
         UserViewModel userViewModel();
         CardViewModel cardViewModel();
+        AboutViewModel aboutViewModel();
 
         @Subcomponent.Builder
         interface Builder {
