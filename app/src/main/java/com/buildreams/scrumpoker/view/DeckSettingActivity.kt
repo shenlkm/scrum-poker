@@ -70,9 +70,10 @@ open class DeckSettingActivity : AppCompatActivity() {
             override fun getView(pos: Int, convertView: View?, parent: ViewGroup): View {
                 val v: TextView = super.getView(pos, convertView, parent) as TextView
                 if (pos == itemSelected) {
-                    val img = context.resources.getDrawable(R.drawable.ic_check)
-                    img.setBounds(0, 0, 60, 60)
-                    v.setCompoundDrawables(null, null, img, null)
+                    ContextCompat.getDrawable(context, R.drawable.ic_check).also {
+                        it?.setBounds(0, 0, 60, 60)
+                        v.setCompoundDrawables(null, null, it, null)
+                    }
                 }
 
                 when (pos) {

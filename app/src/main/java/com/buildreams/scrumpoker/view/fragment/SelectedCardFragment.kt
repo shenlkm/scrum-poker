@@ -62,12 +62,12 @@ open class SelectedCardFragment : Fragment() {
     }
 
     private fun setItemsLayoutParams() {
-        var layoutParamsCard = binding.cardView.getLayoutParams()
+        val layoutParamsCard = binding.cardView.layoutParams
         layoutParamsCard.height = ViewGroup.LayoutParams.MATCH_PARENT
         layoutParamsCard.width = ViewGroup.LayoutParams.MATCH_PARENT
         binding.cardView.layoutParams = layoutParamsCard
 
-        var layoutParamsText = binding.infoText.getLayoutParams()
+        val layoutParamsText = binding.infoText.layoutParams
         layoutParamsText.height = ViewGroup.LayoutParams.MATCH_PARENT
         layoutParamsText.width = ViewGroup.LayoutParams.MATCH_PARENT
         binding.infoText.layoutParams = layoutParamsText
