@@ -1,6 +1,8 @@
 package com.buildreams.scrumpoker.di;
 
-import com.buildreams.scrumpoker.view.MainActivity;
+import com.buildreams.scrumpoker.view.DashboardCardActivity;
+import com.buildreams.scrumpoker.view.DeckSettingActivity;
+
 import dagger.Binds;
 import dagger.Module;
 import dagger.Subcomponent;
@@ -9,20 +11,36 @@ import dagger.multibindings.ClassKey;
 import dagger.multibindings.IntoMap;
 
 @Module(subcomponents = {
-        ActivityModule.MainActivitySubcomponent.class,
+        ActivityModule.DeploymentCardActivitySubcomponent.class,
+        ActivityModule.DeckSettingActivitySubcomponent.class
 })
 public abstract class ActivityModule {
 
     @Binds
     @IntoMap
-    @ClassKey(MainActivity.class)
+    @ClassKey(DashboardCardActivity.class)
     abstract AndroidInjector.Factory<?>
-    bindLoginActivityInjectorFactory(MainActivitySubcomponent.Factory factory);
+    bindDeploymentCardActivityInjectorFactory(DeploymentCardActivitySubcomponent.Factory factory);
+
+
+    @Subcomponent(modules = {ViewModelModule.class, AdapterModule.class})
+    public interface DeploymentCardActivitySubcomponent extends AndroidInjector<DashboardCardActivity> {
+        @Subcomponent.Factory
+        interface Factory extends AndroidInjector.Factory<DashboardCardActivity> {
+        }
+    }
+
+    @Binds
+    @IntoMap
+    @ClassKey(DeckSettingActivity.class)
+    abstract AndroidInjector.Factory<?>
+    bindDeckSettingInjectorFactory(DeckSettingActivitySubcomponent.Factory factory);
+
 
     @Subcomponent(modules = {ViewModelModule.class})
-    public interface MainActivitySubcomponent extends AndroidInjector<MainActivity> {
+    public interface DeckSettingActivitySubcomponent extends AndroidInjector<DeckSettingActivity> {
         @Subcomponent.Factory
-        public interface Factory extends AndroidInjector.Factory<MainActivity> {
+        interface Factory extends AndroidInjector.Factory<DeckSettingActivity> {
         }
     }
 }

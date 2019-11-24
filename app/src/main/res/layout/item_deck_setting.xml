@@ -1,0 +1,18 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+            android:id="@+id/label"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            android:text="Hola"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:gravity="center_vertical|start"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/colorAccent">
+    </TextView>
+
+</layout>

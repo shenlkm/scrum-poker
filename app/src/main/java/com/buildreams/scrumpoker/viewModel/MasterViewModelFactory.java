@@ -1,15 +1,18 @@
 package com.buildreams.scrumpoker.viewModel;
 
 import android.util.ArrayMap;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
+
 import com.buildreams.scrumpoker.di.ViewModelModule;
+
+import java.util.Map;
+import java.util.concurrent.Callable;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import java.util.Map;
-import java.util.concurrent.Callable;
 
 @Singleton
 public class MasterViewModelFactory implements ViewModelProvider.Factory {
@@ -19,6 +22,8 @@ public class MasterViewModelFactory implements ViewModelProvider.Factory {
     public MasterViewModelFactory(final ViewModelModule.ViewModelSubComponent viewModelSubComponent) {
         creators = new ArrayMap<>();
         creators.put(UserViewModel.class, viewModelSubComponent::userViewModel);
+        creators.put(CardViewModel.class, viewModelSubComponent::cardViewModel);
+        creators.put(AboutViewModel.class, viewModelSubComponent::aboutViewModel);
     }
 
     @NonNull
