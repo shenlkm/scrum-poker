@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/nav_graph">
+
+    <activity
+        android:id="@+id/navDashboardActivity"
+        android:name="com.buildreams.scrumpoker.view.DashboardCardActivity"
+        android:label="Start"
+        tools:layout="@layout/activity_dashboard_card" />
+
+
+    <fragment
+        android:id="@+id/navDashboardFragment"
+        android:name="com.buildreams.scrumpoker.view.fragment.DashboardCardFragment"
+        android:label="Start"
+        tools:layout="@layout/fragment_dashboard_card" >
+        <action
+            android:id="@+id/action_navDashboardFragment_to_navSelectedCardFragment"
+            app:destination="@id/navSelectedCardFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navSelectedCardFragment"
+        android:name="com.buildreams.scrumpoker.view.fragment.SelectedCardFragment"
+        android:label="Start"
+        tools:layout="@layout/item_card" />
+
+</navigation>
