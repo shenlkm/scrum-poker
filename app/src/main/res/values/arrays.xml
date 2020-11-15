@@ -2,7 +2,7 @@
 <resources>
     <string-array name="deck_setting" >
         <item name="fibonacci">Fibonacci</item>
-        <item name="t_shirt">T Shit</item>
+        <item name="t_shirt">T Shirt</item>
         <item name="recommend">Recommend</item>
     </string-array>
 </resources>
