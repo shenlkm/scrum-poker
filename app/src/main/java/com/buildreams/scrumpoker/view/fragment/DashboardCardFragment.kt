@@ -8,16 +8,15 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.buildreams.scrumpoker.R
+import com.buildreams.scrumpoker.ScrumPokerApplication
 import com.buildreams.scrumpoker.databinding.FragmentDashboardCardBinding
 import com.buildreams.scrumpoker.domain.entity.Card
 import com.buildreams.scrumpoker.view.DashboardCardActivity
 import com.buildreams.scrumpoker.view.adapter.DashboardCardAdapter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import dagger.android.support.AndroidSupportInjection
 import java.util.*
 import javax.inject.Inject
 
@@ -25,16 +24,22 @@ import javax.inject.Inject
 class DashboardCardFragment(private var activity: DashboardCardActivity) : Fragment() {
 
     @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-
-    @Inject
     lateinit var adapter: DashboardCardAdapter
 
     lateinit var binding: FragmentDashboardCardBinding
     private lateinit var listener: DashboardCardAdapter.ItemListener
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        activity.applicationContext.let {
+            (it as ScrumPokerApplication).appComponent.inject(this)
+        }
+        super.onCreate(savedInstanceState)
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         binding = DataBindingUtil.inflate<ViewDataBinding>(
             inflater,
             R.layout.fragment_dashboard_card, container, false
@@ -82,12 +87,11 @@ class DashboardCardFragment(private var activity: DashboardCardActivity) : Fragm
     }
 
     override fun onAttach(context: Context) {
-        if (context is DashboardCardAdapter.ItemListener){
+        if (context is DashboardCardAdapter.ItemListener) {
             listener = context
         } else {
             throw RuntimeException("$context must implement DashboardCardAdapter.ItemListeners")
         }
-        AndroidSupportInjection.inject(this)
         super.onAttach(context)
     }
 }

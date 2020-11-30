@@ -5,7 +5,6 @@ import android.R
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
-import android.content.Context
 import android.os.Bundle
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -19,23 +18,40 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.buildreams.scrumpoker.BR
 import com.buildreams.scrumpoker.CardBinding
+import com.buildreams.scrumpoker.ScrumPokerApplication
 import com.buildreams.scrumpoker.view.DashboardCardActivity
 import com.buildreams.scrumpoker.viewModel.CardViewModel
-import dagger.android.support.AndroidSupportInjection
+import com.buildreams.scrumpoker.viewModel.ViewModelFactory
 import javax.inject.Inject
 
 
 open class SelectedCardFragment : Fragment() {
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private var isCardFlipped: Boolean = false
     lateinit var binding: CardBinding
+
+    @Inject
+    lateinit var viewModelProvider: ViewModelFactory<CardViewModel>
     lateinit var viewModel: CardViewModel
 
-    override fun onCreateView( inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
-        binding = DataBindingUtil.inflate<ViewDataBinding>(inflater,
+    override fun onCreate(savedInstanceState: Bundle?) {
+        activity?.applicationContext.let {
+            (it as ScrumPokerApplication).appComponent.inject(this)
+        }
+        viewModel = ViewModelProvider(this, viewModelProvider).get(
+            CardViewModel::class.java
+        )
+        super.onCreate(savedInstanceState)
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = DataBindingUtil.inflate<ViewDataBinding>(
+            inflater,
             com.buildreams.scrumpoker.R.layout.item_card, container, false
         ) as CardBinding
         return binding.root
@@ -43,7 +59,8 @@ open class SelectedCardFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(context as DashboardCardActivity, viewModelFactory).get(CardViewModel::class.java)
+        viewModel =
+            ViewModelProvider(context as DashboardCardActivity).get(CardViewModel::class.java)
 
         binding.apply {
             setVariable(BR.card, viewModel.card.value)
@@ -52,7 +69,7 @@ open class SelectedCardFragment : Fragment() {
         binding.infoText.visibility = View.GONE
         setItemsLayoutParams()
 
-        binding.cardContainer .setOnClickListener { view ->
+        binding.cardContainer.setOnClickListener { view ->
             if (isCardFlipped) {
                 parentFragmentManager.popBackStack()
             } else {
@@ -96,11 +113,6 @@ open class SelectedCardFragment : Fragment() {
     companion object {
         @JvmStatic
         fun newInstance() = SelectedCardFragment()
-    }
-
-    override fun onAttach(context: Context) {
-        AndroidSupportInjection.inject(this)
-        super.onAttach(context)
     }
 
     override fun onResume() {

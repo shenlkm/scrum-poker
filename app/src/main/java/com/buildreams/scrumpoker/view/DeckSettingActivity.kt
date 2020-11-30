@@ -15,7 +15,7 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.buildreams.scrumpoker.DeckSettingBinding
 import com.buildreams.scrumpoker.R
-import dagger.android.AndroidInjection
+import com.buildreams.scrumpoker.ScrumPokerApplication
 
 
 open class DeckSettingActivity : AppCompatActivity() {
@@ -23,7 +23,7 @@ open class DeckSettingActivity : AppCompatActivity() {
     lateinit var binding: DeckSettingBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidInjection.inject(this)
+        (applicationContext as ScrumPokerApplication).appComponent.inject(this)
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_deck_setting)

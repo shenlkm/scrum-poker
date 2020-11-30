@@ -7,8 +7,7 @@ import com.buildreams.scrumpoker.domain.entity.About
 import javax.inject.Inject
 
 
-class AboutViewModel @Inject
-constructor() : ViewModel() {
+class AboutViewModel @Inject constructor() : ViewModel() {
 
     companion object {
         const val YEAR = 2019
@@ -23,9 +22,12 @@ constructor() : ViewModel() {
         _about.value = About(
             "$YEAR - $DEV_CAMILO, $DEV_MAURICIO",
             "1.0.0",
-            listOf("<a href=\"https://github.com/camroga\">camroga</a>", "<a href=\"https://github.com/shenlkm\">shenlkm</a>"),
+            listOf(
+                "<a href=\"https://github.com/camroga\">camroga</a>",
+                "<a href=\"https://github.com/shenlkm\">shenlkm</a>"
+            ),
             "https://github.com/shenlkm/scrum-poker",
             listOf()
-            )
+        )
     }
 }

@@ -11,8 +11,8 @@ import com.buildreams.scrumpoker.domain.entity.Card
 
 import javax.inject.Inject
 
-class DashboardCardAdapter @Inject
-constructor() : RecyclerView.Adapter<DashboardCardAdapter.CardViewHolder>() {
+class DashboardCardAdapter @Inject constructor() :
+    RecyclerView.Adapter<DashboardCardAdapter.CardViewHolder>() {
 
     private lateinit var cards: List<Card>
     private lateinit var listener: ItemListener
