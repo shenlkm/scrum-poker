@@ -17,6 +17,7 @@ import com.buildreams.scrumpoker.domain.entity.Card
 import com.buildreams.scrumpoker.view.adapter.DashboardCardAdapter
 import com.buildreams.scrumpoker.view.fragment.AboutFragment
 import com.buildreams.scrumpoker.view.fragment.DashboardCardFragment
+import com.buildreams.scrumpoker.view.fragment.SelectRoomFragment
 import com.buildreams.scrumpoker.view.fragment.SelectedCardFragment
 import com.buildreams.scrumpoker.viewModel.CardViewModel
 import com.buildreams.scrumpoker.viewModel.ViewModelFactory
@@ -50,7 +51,7 @@ open class DashboardCardActivity : AppCompatActivity(), DashboardCardAdapter.Ite
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        addFragment(DashboardCardFragment(this))
+        addFragment(SelectRoomFragment.newInstance())
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
