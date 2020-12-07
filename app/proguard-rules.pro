@@ -26,8 +26,11 @@
 # Lottie
 -dontwarn com.airbnb.lottie.**
 -dontnote com.airbnb.lottie.**
--keep class com.airbnb.lottie.** {*;}
+-keep class com.airbnb.lottie.*
 # Kotlin
 -keep class kotlin.Metadata { *; }
 -dontnote kotlin.internal.PlatformImplementationsKt
 -dontnote kotlin.reflect.jvm.internal.**
+# R8 support for Kotlin metadata
+-keep class kotlin.Metadata { *; }
+-keepattributes RuntimeVisibleAnnotations

@@ -12,13 +12,14 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.buildreams.scrumpoker.DashboardBinding
 import com.buildreams.scrumpoker.R
+import com.buildreams.scrumpoker.ScrumPokerApplication
 import com.buildreams.scrumpoker.domain.entity.Card
 import com.buildreams.scrumpoker.view.adapter.DashboardCardAdapter
 import com.buildreams.scrumpoker.view.fragment.AboutFragment
 import com.buildreams.scrumpoker.view.fragment.DashboardCardFragment
 import com.buildreams.scrumpoker.view.fragment.SelectedCardFragment
 import com.buildreams.scrumpoker.viewModel.CardViewModel
-import dagger.android.AndroidInjection
+import com.buildreams.scrumpoker.viewModel.ViewModelFactory
 import java.util.*
 import javax.inject.Inject
 
@@ -26,17 +27,18 @@ import javax.inject.Inject
 open class DashboardCardActivity : AppCompatActivity(), DashboardCardAdapter.ItemListener {
 
     lateinit var binding: DashboardBinding
-
     @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
+    lateinit var viewModelFactory: ViewModelFactory<CardViewModel>
     lateinit var viewModel: CardViewModel
 
-    private var sounds = intArrayOf(R.raw.dashboard1, R.raw.dashboard2, R.raw.dashboard3, R.raw.dashboard4,
-        R.raw.dashboard5, R.raw.dashboard6, R.raw.dashboard7)
+    private var sounds = intArrayOf(
+        R.raw.dashboard1, R.raw.dashboard2, R.raw.dashboard3, R.raw.dashboard4,
+        R.raw.dashboard5, R.raw.dashboard6, R.raw.dashboard7
+    )
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidInjection.inject(this)
+        (applicationContext as ScrumPokerApplication).appComponent.inject(this)
         super.onCreate(savedInstanceState)
 
         viewModel = ViewModelProvider(this, viewModelFactory).get(CardViewModel::class.java)
