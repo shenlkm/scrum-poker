@@ -42,7 +42,7 @@ class AboutFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = DataBindingUtil.inflate<ViewDataBinding>(
             inflater,
             R.layout.fragment_about, container, false

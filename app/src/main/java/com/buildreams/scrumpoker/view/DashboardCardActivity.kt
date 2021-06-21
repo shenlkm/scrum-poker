@@ -42,9 +42,10 @@ open class DashboardCardActivity : AppCompatActivity(), DashboardCardAdapter.Ite
         super.onCreate(savedInstanceState)
 
         viewModel = ViewModelProvider(this, viewModelFactory).get(CardViewModel::class.java)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_dashboard_card)
-        binding.viewModel = viewModel
 
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_dashboard_card)
+
+        binding.viewModel = viewModel
         binding.navView.setNavigationItemSelectedListener { item -> onNavViewItemSelected(item) }
 
         val toolbar: Toolbar = findViewById(R.id.toolbar)
@@ -97,7 +98,7 @@ open class DashboardCardActivity : AppCompatActivity(), DashboardCardAdapter.Ite
         val transaction = supportFragmentManager.beginTransaction()
         with(transaction) {
             setCustomAnimations(
-                R.anim.fragment_fade_enter, R.anim.fragment_close_exit
+                R.anim.nav_default_enter_anim, R.anim.nav_default_exit_anim
             )
             replace(R.id.fl_deployment_card, fragment)
             addToBackStack(null)
