@@ -39,7 +39,7 @@ class DashboardCardFragment(private var activity: DashboardCardActivity) : Fragm
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = DataBindingUtil.inflate<ViewDataBinding>(
             inflater,
             R.layout.fragment_dashboard_card, container, false
